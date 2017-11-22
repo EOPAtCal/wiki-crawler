@@ -1,10 +1,10 @@
 #!/bin/sh
-PUBLIC="../server/public"
+PUBLIC="../wiki-server/public"
 rm -rf $PUBLIC
 mkdir $PUBLIC
 cp clean/* $PUBLIC
 
-LOGS="../server/logs"
+LOGS="../wiki-server/logs"
 rm -rf $LOGS
 mkdir $LOGS
 cp logs/path.bfs $LOGS

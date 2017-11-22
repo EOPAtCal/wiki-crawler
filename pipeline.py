@@ -6,7 +6,7 @@ from utils import *
 
 if __name__ == "__main__":
     # crawl.main()
-    # preprocess.main()
+    preprocess.main()
     if subprocess.call(['chmod', '+x', 'copy_into_server.sh']) == 0:
         print "successfully made script executable"
         print_a_line()

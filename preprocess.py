@@ -6,7 +6,7 @@ from utils import *
 
 source_dir = "files"
 results_dir = "clean"
-base_url = "http://localhost:4567/"
+base_url = "https://ce3-wiki.herokuapp.com/"
 wiki_url = "http://eop.wikidot.com/"
 
 
