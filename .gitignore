@@ -1,0 +1,13 @@
+**.DS_Store
+**.png
+**.pyc
+**.bfs
+**.dfs
+**/.idea
+**/__pycache__/
+**/geckodriver.log
+
+files/
+clean/
+logs/
+screenshots/
