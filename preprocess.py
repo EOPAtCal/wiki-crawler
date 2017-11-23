@@ -50,6 +50,21 @@ def array_subtract(big, small):
     return results
 
 
+def clean_links(a, patterns):
+    for pattern in patterns:
+        clean_link(a, pattern)
+
+
+def clean_link(a, pattern):
+    href = a.get("href")
+    if href:
+        if re.match(pattern, href):
+            href = re.sub(pattern, "", href)
+            a["href"] = href
+        if re.match(r'javascript', href):
+            a["href"] = ""
+
+
 def main():
     print "Setting up directory"
     setup_dir(results_dir)
@@ -60,13 +75,17 @@ def main():
                 soup = BeautifulSoup(f, 'html5lib')
                 f.close()
 
+            all_links = soup.find_all('a')
+            patterns = [r'^//', r'//$']
+            map(lambda a: clean_links(a, patterns), all_links)
             wiki_links = soup.find_all('a', href=re.compile(wiki_url))
 
             for link in wiki_links:
                 link['href'] = trim_link(link['href'])
                 link = remove_targetblank(link)
 
-            external_links = array_subtract(soup.find_all('a'), wiki_links)
+            all_links = soup.find_all('a')
+            external_links = array_subtract(all_links, wiki_links)
             map(lambda link: ensure_targetblank(link), external_links)
 
             soup.html.unwrap()
