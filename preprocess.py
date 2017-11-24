@@ -50,19 +50,12 @@ def array_subtract(big, small):
     return results
 
 
-def clean_links(a, patterns):
-    for pattern in patterns:
-        clean_link(a, pattern)
+def clean_link(a):
+    a["href"] = a.get("href").strip("/")
 
 
-def clean_link(a, pattern):
-    href = a.get("href")
-    if href:
-        if re.match(pattern, href):
-            href = re.sub(pattern, "", href)
-            a["href"] = href
-        if re.match(r'javascript', href):
-            a["href"] = ""
+def clean_links(links):
+    return map(lambda a: clean_link(a), links)
 
 
 def main():
@@ -76,8 +69,7 @@ def main():
                 f.close()
 
             all_links = soup.find_all('a')
-            patterns = [r'^//', r'//$']
-            map(lambda a: clean_links(a, patterns), all_links)
+            clean_links(all_links)
             wiki_links = soup.find_all('a', href=re.compile(wiki_url))
 
             for link in wiki_links:
